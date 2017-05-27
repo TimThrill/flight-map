@@ -84,15 +84,6 @@
                                             infowindow.open(map,this);});
                 flightPath.setMap(map);
               }
-
-              function onClickFlightPath(map) {
-                var urulu = {lat: -25.363, lng: 131.044};
-                var infowindow = new google.maps.InfoWindow({
-                  content: 'flight path'
-                });
-                infowindow.setPosition(urulu);
-                infowindow.open(map);
-              }
             </script>
             <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7fhW-L2utHgk-91SA3Ji5ngnhk7Ap9Nk&callback=initMap">
