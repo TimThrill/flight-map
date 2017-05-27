@@ -56,15 +56,42 @@
           <div id="map"></div>
             <script>
               function initMap() {
-                var uluru = {lat: -25.363, lng: 131.044};
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 4,
-                  center: uluru
+                    zoom: 3,
+                    center: {lat: 0, lng: -180},
+                    mapTypeId: 'terrain'
+                 });
+
+                  var flightPlanCoordinates = [
+                    {lat: 37.772, lng: -122.214},
+                    {lat: 21.291, lng: -157.821},
+                    {lat: -18.142, lng: 178.431},
+                    {lat: -27.467, lng: 153.027}
+                  ];
+                  var flightPath = new google.maps.Polyline({
+                    path: flightPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                  });
+
+                var infowindow = new google.maps.InfoWindow({
+                  content: 'flight path'
                 });
-                var marker = new google.maps.Marker({
-                  position: uluru,
-                  map: map
+                google.maps.event.addListener(flightPath, 'click', function(event){
+                                            infowindow.setPosition({lat:event.latLng.lat(), lng:event.latLng.lng()});
+                                            infowindow.open(map,this);});
+                flightPath.setMap(map);
+              }
+
+              function onClickFlightPath(map) {
+                var urulu = {lat: -25.363, lng: 131.044};
+                var infowindow = new google.maps.InfoWindow({
+                  content: 'flight path'
                 });
+                infowindow.setPosition(urulu);
+                infowindow.open(map);
               }
             </script>
             <script async defer
