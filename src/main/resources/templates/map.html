@@ -77,12 +77,18 @@
                   });
 
                 var infowindow = new google.maps.InfoWindow({
-                  content: 'flight path'
-                });
-                google.maps.event.addListener(flightPath, 'click', function(event){
-                                            infowindow.setPosition({lat:event.latLng.lat(), lng:event.latLng.lng()});
-                                            infowindow.open(map,this);});
+                      content: 'flight path'
+                    });
+                flightPath.addListener('click', function(event){onClickFlightPath(infowindow, map, event);});
                 flightPath.setMap(map);
+              }
+
+              function onClickFlightPath(infowindow, map, event) {
+                if(infowindow.open) {
+                    infowindow.close();
+                }
+                infowindow.setPosition({lat:event.latLng.lat(), lng:event.latLng.lng()});
+                infowindow.open(map);
               }
             </script>
             <script async defer
