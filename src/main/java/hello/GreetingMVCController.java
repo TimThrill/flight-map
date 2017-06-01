@@ -15,4 +15,9 @@ public class GreetingMVCController {
         model.addAttribute("name", name);
         return "/greeting";
     }
+    
+    @RequestMapping("/flightMapMVC")
+    public String flightMapMVC(Model model) {
+    	return "/map";
+    }
 }
