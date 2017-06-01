@@ -2,14 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../static/css/simple-sidebar.css">
-    <link rel="stylesheet" href="../../static/css/flight-map.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/css/simple-sidebar.css" th:href="@{/css/simple-sidebar.css}"/>
+    <link rel="stylesheet" href="../static/css/flight-map.css" th:href="@{/css/flight-map.css}"/>
 
     <!-- jQuery -->
-    <script src="../../static/js/jquery.min.js"></script>
+    <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- JS file for Google map -->
+    <script src="../static/js/flight-map.js" th:src="@{/js/flight-map.js}"></script>
 
     <title>Map View</title>
 </head>
@@ -53,46 +55,19 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
           <h3>My Google Maps Demo</h3>
-          <div id="map"></div>
+          <div id="flight-map"></div>
             <script>
-              function initMap() {
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 3,
-                    center: {lat: 0, lng: -180},
-                    mapTypeId: 'terrain'
-                 });
-
-                  var flightPlanCoordinates = [
-                    {lat: 37.772, lng: -122.214},
-                    {lat: 21.291, lng: -157.821},
-                    {lat: -18.142, lng: 178.431},
-                    {lat: -27.467, lng: 153.027}
-                  ];
-                  var flightPath = new google.maps.Polyline({
-                    path: flightPlanCoordinates,
-                    geodesic: true,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 2
-                  });
-
-                var infowindow = new google.maps.InfoWindow({
-                      content: 'flight path'
-                    });
-                flightPath.addListener('click', function(event){onClickFlightPath(infowindow, map, event);});
-                flightPath.setMap(map);
-              }
-
-              function onClickFlightPath(infowindow, map, event) {
-                if(infowindow.open) {
-                    infowindow.close();
-                }
-                infowindow.setPosition({lat:event.latLng.lat(), lng:event.latLng.lng()});
-                infowindow.open(map);
-              }
+            initMap();
             </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7fhW-L2utHgk-91SA3Ji5ngnhk7Ap9Nk&callback=initMap">
+            <!-- Below is for the Thymeleaf version to parse the src attibute. However, it is not rendered by browser -->
+            <!--  
+            <script async="async" defer="defer"
+                    th:src="@{https://maps.googleapis.com/maps/api/js(key='AIzaSyB7fhW-L2utHgk-91SA3Ji5ngnhk7Ap9Nk', callback='initMap')}">
+            </script>
+            -->
+            <!-- Remember to escape '&' to '&amp;' -->
+            <script async="async" defer="defer"
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7fhW-L2utHgk-91SA3Ji5ngnhk7Ap9Nk&amp;callback=initMap">
             </script>
         </div>
         <!-- /#page-content-wrapper -->
